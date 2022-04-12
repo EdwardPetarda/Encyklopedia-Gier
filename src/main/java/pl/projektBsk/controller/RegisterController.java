@@ -35,6 +35,7 @@ public class RegisterController {
     }
 
 
+    //Rejestracja użytkownika
     @PostMapping("/register")
     public String saveUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
