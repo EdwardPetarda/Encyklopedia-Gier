@@ -42,7 +42,7 @@ public class AddFormController {
         return "addForm";
     }
 
-
+    //Dodanie gry do bazy, zapisanie zdjęcia na dysku
     @PostMapping("/addGame")
     private String addGame(@Valid @ModelAttribute Game game, BindingResult bindingResult, @Valid @ModelAttribute GameDetails gameDetails, BindingResult bindingResult2 ,
                            @RequestParam String[] platform, @RequestParam (name= "image",required = false) MultipartFile image,  Model model)  {
@@ -92,6 +92,7 @@ public class AddFormController {
 
     }
 
+    //Przechwycenie wyjątku o brakujących parametrach
     @ExceptionHandler({MissingServletRequestParameterException.class})
     public String handleMissingParams(Model model){
         Game game = new Game();
@@ -102,7 +103,8 @@ public class AddFormController {
         model.addAttribute("wrongFormat", false);
         return "addForm";
     }
-
+    
+    //Przechwycenie wyjątków przy dodaniu ppliku o zbyt dużej pojemności
     @ExceptionHandler({MaxUploadSizeExceededException.class,FileSizeLimitExceededException.class})
     public String wrongFormat( Model model){
         Game game = new Game();
