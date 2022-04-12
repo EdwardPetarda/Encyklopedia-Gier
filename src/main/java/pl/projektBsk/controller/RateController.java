@@ -22,6 +22,7 @@ public class RateController {
         this.gameService = gameService;
     }
 
+    //Dodanie oceny, jeżeli już użytkownik dodał ocene do danej gry to następuje edycja oceny, wykorzystywane w podstawowym widoku szczegółów gry 
     @PostMapping("/rate/{id}")
     public String addRate(@PathVariable Long id, @RequestParam double userRate, Model model) {
         if (gameService.exist(id)) {
@@ -39,6 +40,7 @@ public class RateController {
             return "errorView";
 
     }
+    //Wykorzystywane w panelu użytkownika "ocenione" przy wejściu na stronę szczegółów gry, edytuje ocenę gry.
     @PostMapping("/ratings/{id}")
     public String editRate(@PathVariable Long id, @RequestParam double userRate, Model model) {
         if (gameService.exist(id)) {
