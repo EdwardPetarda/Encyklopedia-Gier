@@ -37,6 +37,7 @@ public class EditGameController {
         this.editGameService = editGameService;
     }
 
+    //Pobranie widoku z formularzem do edycji danych gry
    @GetMapping("/edit/{id}")
    public String getEditForm(@PathVariable Long id, Model model){
        Optional<Game> game = gameRepository.findById(id);
@@ -52,6 +53,7 @@ public class EditGameController {
        }
    }
 
+    //Edycja informacji na temat gry w bazie danych 
    @PostMapping("/edit/{id}")
     public String editGame(@PathVariable Long id, @RequestParam String name, @RequestParam String genre, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
                            @RequestParam String shortDescription, @RequestParam String developer, @RequestParam String publisher,
@@ -77,6 +79,8 @@ public class EditGameController {
         }
    }
 
+    
+    //Przechwycenie wyjątku o brakujących parametrach w zapytaniu. 
     @ExceptionHandler({MissingServletRequestParameterException.class, ConstraintViolationException.class})
     public String handlMissingParams(Model model, HttpServletRequest request){
         Game game = new Game();
