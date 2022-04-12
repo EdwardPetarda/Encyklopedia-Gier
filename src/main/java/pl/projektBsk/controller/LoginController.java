@@ -31,6 +31,8 @@ public class LoginController {
         model.addAttribute("invalidCredentials", false);
         return "login";
     }
+    
+    //Logowanie użytkownika
     @PostMapping("login")
     public String login(@RequestParam String username, @RequestParam String password,Model model,HttpSession session){
         Optional<User> user = userRepository.findByUsername(username);
