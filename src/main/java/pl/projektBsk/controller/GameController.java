@@ -41,7 +41,8 @@ public class GameController {
         this.gameService = gameService;
         this.userService = userService;
     }
-
+    
+    //Wyświetlenie gier na PC
     @GetMapping("/game/PC")
     public String getGamePc(Model model, @RequestParam(required = false) String sort,@RequestParam(required = false,defaultValue = "0") int pageNr){
         Pageable page = getPageable(sort,pageNr);
@@ -50,6 +51,7 @@ public class GameController {
                 (model,page,"PC");
     }
 
+    //Wyświetlenie gier na PC odpowiedniego gatunku 
     @GetMapping("/game/PC/genre/{genre}")
     public String getGamePc(@PathVariable String genre, Model model, @RequestParam(required = false) String sort,@RequestParam(required = false,defaultValue = "0") int pageNr){
         if(gameService.checkGenre(genre)) {
@@ -62,7 +64,7 @@ public class GameController {
         }
     }
 
-
+//Wyświetlenie gier na PS
     @GetMapping("/game/PS")
     public String getGamePs(Model model, @RequestParam(required = false) String sort,@RequestParam(required = false,defaultValue = "0") int pageNr){
         Pageable page = getPageable(sort, pageNr);
@@ -82,7 +84,7 @@ public class GameController {
         }
     }
 
-
+//Wyświetlenie gier na XBOX
     @GetMapping("/game/Xbox")
     public String getGameXbox(Model model, @RequestParam(required = false) String sort,@RequestParam(required = false,defaultValue = "0") int pageNr){
         Pageable page = getPageable(sort, pageNr);
@@ -102,7 +104,7 @@ public class GameController {
             return "errorView";
         }
     }
-
+//Wyświetlenie gier na SWITCH
     @GetMapping("/game/Switch")
     public String getGameSwitch(Model model, @RequestParam(required = false) String sort,@RequestParam(required = false,defaultValue = "0") int pageNr){
         Pageable page = getPageable(sort, pageNr);
@@ -126,7 +128,7 @@ public class GameController {
     }
 
 
-
+    //Wyszukanie gier po podanej frazie
     @GetMapping("/search")
     public String getSearch(@RequestParam String name, Model model, @RequestParam(required = false) String sort,@RequestParam(required = false,defaultValue = "0") int pageNr){
         Pageable page = getPageable(sort, pageNr);
@@ -134,6 +136,8 @@ public class GameController {
         return getByName(model,page,name);
 
     }
+    
+    //Wyświetlenie strony szczegółowej gry, zapytanie o wszystkie dane z bazy danych o grze z danym id
     @GetMapping("/game/{id}")
     public String getDetailsGame(@PathVariable long id,Model model){
         Optional<Game> game = gameRepository.findById(id);
@@ -156,6 +160,7 @@ public class GameController {
         }
     }
 
+    //Usunięcie gry z bazy danych 
     @GetMapping("/game/delete/{id}")
     public String getDeleteGame(@PathVariable long id,Model model){
         Optional<Game> game = gameRepository.findById(id);
@@ -168,6 +173,8 @@ public class GameController {
         }
     }
 
+    
+    //Pobranie wszystkich gier z bazy danych na daną platrofme.
     private String getByPlatform
             (Model model, Pageable page,String platform) {
 
@@ -203,6 +210,8 @@ public class GameController {
         return "games";
     }
 
+    
+    //Pobranie wszystkich gier z bazy danych na daną platformę oraz o podanym gatunku.
     private String getByGenreAndPlatform
             (Model model, Pageable page,String platform, String genre) {
 
@@ -240,6 +249,7 @@ public class GameController {
     }
 
 
+    //Pobranie gier z bazy danych, których nazwa zaczyna się od podanej frazy 
     private String getByName
             (Model model, Pageable page,String name) {
 
@@ -269,6 +279,7 @@ public class GameController {
         return "search";
     }
 
+    //Funkcja służąca do tworzenia stron potrzebnych do pobierania gier, można przekazać także argument do sortowania
     private Pageable getPageable( String sort,  int pageNr) {
         Pageable page;
         pageNr--;
