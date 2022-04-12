@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/style/style.css}"/>
+    <title>Title</title>
+</head>
+<body>
+<div id="container">
+    <div id="naglowek">
+        <ul sec:authorize="isAuthenticated()" class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" sec:authorize="hasAuthority('USER')" th:href="@{/myAccount}">Moje konto</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#" sec:authorize="hasAuthority('ADMIN')" th:href="@{/administration}">Administracja</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/logout}">Wyloguj sie</a>
+            </li>
+        </ul>
+        <ul sec:authorize="isAnonymous()" class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" th:href="@{/register}">Zarejestruj się</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/login}">Zaloguj się</a>
+            </li>
+        </ul>
+
+
+        <form id="wyszukiwarka" class="form-inline my-2 my-lg-0" action="#" th:action="@{/search}">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" th:name="name">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+        <a id="logo" href="#" th:href="@{/}">Encyklopedia Gier</a>
+    </div>
+    <div id="navbar" >
+        <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/game/PC}">Gry Pc</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/game/PS}">Gry Ps</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/game/Xbox}">Gry Xbox</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/game/Switch}">Gry Switch</a>
+            </li>
+        </ul>
+    </div>
+    <div class="jumbotron jumbotron-fluid" style="background-image: url('../img/tlo2.jpg'); height: 670px;">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/style/style.css}"/>
+  <title>Title</title>
+</head>
+<body>
+<div id="container">
+  <div id="naglowek">
+    <ul sec:authorize="isAuthenticated()" class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link active" href="#" sec:authorize="hasAuthority('ADMIN')" th:href="@{/administration}">Administracja</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/logout}">Wyloguj sie</a>
+      </li>
+    </ul>
+    <ul sec:authorize="isAnonymous()" class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link active" href="#" th:href="@{/register}">Zarejestruj się</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/login}">Zaloguj się</a>
+      </li>
+    </ul>
+
+
+    <form id="wyszukiwarka" class="form-inline my-2 my-lg-0" action="#" th:action="@{/search}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" th:name="name">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+    <a id="logo" href="#" th:href="@{/}">Encyklopedia Gier</a>
+  </div>
+  <div id="navbar">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/addForm}">Dodaj grę</a>
+      </li>
+    </ul>
+  </div>
+  <div class="jumbotron jumbotron-fluid">
+    <form action="#" th:action="@{|/edit/${gameToEdit.id}|}" method="post"  enctype="multipart/form-data">
+
+      <p th:if="${wrongFormat}">Podales zly format obrazka</p>
+      <p th:if="${emptyFields}">Pozostawiles puste pola</p>
+
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <input type="text" id="form6Example1" class="form-control" name="name"  th:value="${gameToEdit.name}"  />
+            <label class="form-label" for="form6Example1">Nazwa gry</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <select class="form-control" id="exampleFormControlSelect1" name="genre" th:value="${gameToEdit.genre}">
+              <option th:value="${gameToEdit.genre}" selected th:text="${gameToEdit.genre}" hidden></option>
+              <option th:value="RPG">RPG</option>
+              <option th:value="ACTION">Akcji</option>
+              <option th:value="STRATEGY">Strategiczne</option>
+              <option th:value="ADVENTURE">Przygodowe</option>
+              <option th:value="MMO">MMO</option>
+              <option th:value="SPORTS">Sportowe</option>
+              <option th:value="FIGHTING">Bijatyki</option>
+              <option th:value="SIMULATION">Symulacyjne</option>
+            </select>
+            <label class="form-label" for="exampleFormControlSelect1">Gatunek </label>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <input type="date" id="form6Example4" class="form-control" th:name="date" th:value="${gameToEdit.dataWydania}"  />
+            <label class="form-label" for="form6Example4">Data wydania</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-outline mb-4">
+        <textarea  class="form-control" id="form6Example7" rows="4" th:name="shortDescription" th:text="${gameToEdit.shortDescription}"  th:maxlength="512" ></textarea>
+        <label class="form-label" for="form6Example7">Krótki opis</label>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-check" >
+            <input type="text" id="form6Example9" class="form-control" th:name="developer" th:value="${gameToEdit.details.developer}" />
+            <label class="form-label" for="form6Example9">Deweloper</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <input type="text" id="form6Example8" class="form-control" th:name="publisher" th:value="${gameToEdit.details.publisher}" />
+            <label class="form-label" for="form6Example8">Wydawca</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-outline mb-4">
+        <textarea  class="form-control" id="form6Example10" rows="4" th:name="ogolnyOpis" th:text="${gameToEdit.details.ogolnyOpis}"  th:maxlength="4096" ></textarea>
+        <label class="form-label" for="form6Example10">Ogolny opis gry</label>
+      </div>
+
+      <div class="form-outline mb-4">
+        <textarea  class="form-control" id="form6Example11" rows="4" th:name="fabula" th:text="${gameToEdit.details.fabula}"  th:maxlength="4096" ></textarea>
+        <label class="form-label" for="form6Example11">Krotki zarys fabuly</label>
+      </div>
+
+      <div class="form-outline mb-4">
+        <textarea  class="form-control" id="form6Example12" rows="4" th:name="mechanika" th:text="${gameToEdit.details.mechanika}"  th:maxlength="4096" ></textarea>
+        <label class="form-label" for="form6Example12">Mechanika</label>
+      </div>
+
+      <div class="form-outline mb-4">
+        <textarea  class="form-control" id="form6Example13" rows="4" th:name="inne" th:text="${gameToEdit.details.inne}"  th:maxlength="4096" ></textarea>
+        <label class="form-label" for="form6Example13">Inne informacje</label>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlFile1">Example file input</label>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1" accept="image/*" name="image" multiple="multiple">
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block mb-4">Edytuj</button>
+    </form>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

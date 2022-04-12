@@ -1,0 +1,56 @@
+h4{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: red;
+    font-weight: bolder;
+}
+
+.rate{
+   text-align: center;
+    justify-content: center;
+    width: 60px;
+}
+#div-rate{
+    float:right;
+    align-items: center;
+    background-color: gold;
+    height: auto;
+    border-radius: 15%;
+}
+#rateForm{
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+img{
+    margin-right: 15px;
+}
+#userComment{
+    border-bottom: 2px dotted gray;
+    width: auto;
+    padding-right: 150px;
+    padding-left: 150px;
+}
+#commentContent{
+}
+.comment-buttons{
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: red;
+    color: white;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+}
+.comment-buttons:hover{
+    background-color: brown;
+    transition: all 0.3s ease-out;
+    text-decoration: none;
+    color: white;
+}
+#userCommentName{
+    flex: auto;
+}
+

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/style/style.css}"/>
+  <title>Title</title>
+</head>
+<body>
+<div id="container">
+  <div id="naglowek">
+    <ul sec:authorize="isAuthenticated()" class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link active" href="#" sec:authorize="hasAuthority('USER')" th:href="@{/myAccount}">Moje konto</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="#" sec:authorize="hasAuthority('ADMIN')" th:href="@{/administration}">Administracja</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" th:href="@{/logout}">Wyloguj sie</a>
+    </li>
+  </ul>
+    <ul sec:authorize="isAnonymous()" class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link active" href="#" th:href="@{/register}">Zarejestruj się</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/login}">Zaloguj się</a>
+      </li>
+    </ul>
+
+
+    <form id="wyszukiwarka" class="form-inline my-2 my-lg-0" action="#" th:action="@{/search}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" th:name="name">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+    <a id="logo" href="#" th:href="@{/}">Encyklopedia Gier</a>
+  </div>
+  <div id="navbar">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/game/PC}">Gry Pc</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/game/PS}">Gry Ps</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/game/Xbox}">Gry Xbox</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/game/Switch}">Gry Switch</a>
+      </li>
+    </ul>
+  </div>
+  <div th:if="${pages}" class="jumbotron jumbotron-fluid">
+
+    <div id="sortButtons" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+    <a href="#" th:href="${urlBuilder.replaceQueryParam('sort','name').toUriString()}" class="btn btn-danger" role="button" aria-pressed="true">Nazwa</a>
+    <a href="#" th:href="${urlBuilder.replaceQueryParam('sort','dataWydania').toUriString()}" class="btn btn-danger" role="button" aria-pressed="true">Data Produkcji</a>
+      <span th:if="${gamesByGenre!=null} and ${showGenreFilter}">
+        <a href="#"  th:href="@{|${#httpServletRequest.requestURI}/genre/RPG|}" class="btn btn-danger" role="button" aria-pressed="true" th:text="|RPG: ${gamesByGenre.get('RPG')}|"></a>
+        <a href="#" th:href="@{|${#httpServletRequest.requestURI}/genre/Akcji|}" class="btn btn-danger" role="button" aria-pressed="true" th:text="|Akcji: ${gamesByGenre.get('Akcji')}|"></a>
+        <a href="#" th:href="@{|${#httpServletRequest.requestURI}/genre/Strategiczne|}" class="btn btn-danger" role="button" aria-pressed="true" th:text="|Strategiczne: ${gamesByGenre.get('Strategiczne')}|"></a>
+        <a href="#" th:href="@{|${#httpServletRequest.requestURI}/genre/Przygodowe|}" class="btn btn-danger" role="button" aria-pressed="true" th:text="|Przygodowe: ${gamesByGenre.get('Przygodowe')}|"></a>
+        <a href="#" th:href="@{|${#httpServletRequest.requestURI}/genre/MMO|}" class="btn btn-danger" role="button" aria-pressed="true" th:text="|MMO: ${gamesByGenre.get('MMO')}|"></a>
+        <a href="#" th:href="@{|${#httpServletRequest.requestURI}/genre/Sportowe|}" class="btn btn-danger" role="button" aria-pressed="true" th:text="|Sportowe: ${gamesByGenre.get('Sportowe')}|"></a>
+        <a href="#" th:href="@{|${#httpServletRequest.requestURI}/genre/Bijatyki|}" class="btn btn-danger" role="button" aria-pressed="true" th:text="|Bijatyki: ${gamesByGenre.get('Bijatyki')}|"></a>
+        <a href="#" th:href="@{|${#httpServletRequest.requestURI}/genre/Symulacyjne|}" class="btn btn-danger" role="button" aria-pressed="true" th:text="|Symulacyjne: ${gamesByGenre.get('Symulacyjne')}|"></a>
+
+      </span>
+    </div>
+
+    <div th:remove="all-but-first">
+      <div id="games" class="media col-9 offset-2"   th:each="game: ${games.getContent()}">
+        <img id="game-img" th:src="@{${game.imgSrc}}"/>
+        <div class="media-body">
+          <a id="game-link" href="#" th:href="@{|/game/${game.id}|}">
+          <h3 th:text="${game.name}"></h3>
+          </a>
+          <a href="#" th:href="@{|/game/delete/${game.id}|}" id="usun-button" sec:authorize="hasAuthority('ADMIN')" class="btn btn-sm btn-primary">
+            Usun
+          </a>
+          <h5 th:text="|${game.genre}(${game.dataWydania})|"></h5>
+          <p th:text="${game.shortDescription}"></p>
+        </div>
+      </div>
+    </div>
+    <div th:if="${pages > 1}">
+      <div th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}" >
+        <a th:each="i:${#numbers.sequence(1,pages)}" href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" th:href="${urlBuilder.replaceQueryParam('pageNr',i).toUriString()}" th:text="${i}"></a>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

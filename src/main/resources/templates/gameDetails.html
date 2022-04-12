@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/style/style.css}"/>
+    <link rel="stylesheet" th:href="@{/style/gameDetails.css}"/>
+    <script th:src="@{/js/script.js}"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="container">
+    <div id="naglowek">
+        <ul sec:authorize="isAuthenticated()" class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" sec:authorize="hasAuthority('USER')" th:href="@{/myAccount}">Moje konto</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#" sec:authorize="hasAuthority('ADMIN')" th:href="@{/administration}">Administracja</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/logout}">Wyloguj sie</a>
+            </li>
+        </ul>
+        <ul sec:authorize="isAnonymous()" class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" th:href="@{/register}">Zarejestruj się</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/login}">Zaloguj się</a>
+            </li>
+        </ul>
+
+
+        <form id="wyszukiwarka" class="form-inline my-2 my-lg-0" action="#" th:action="@{/search}">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" th:name="name">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+        <a id="logo" href="#" th:href="@{/}">Encyklopedia Gier</a>
+    </div>
+    <div id="navbar">
+        <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/game/PC}">Gry Pc</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/game/PS}">Gry Ps</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/game/Xbox}">Gry Xbox</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/game/Switch}">Gry Switch</a>
+            </li>
+        </ul>
+    </div>
+    <div  class="jumbotron jumbotron-fluid">
+            <div class="media col-12 ">
+                <img th:src="@{${game.imgSrc}}"/>
+                <div class="media-body">
+                    <span sec:authorize="hasAuthority('ADMIN')">
+                        <a href="#" th:href="@{|/edit/${game.id}|}" class="btn btn-sm btn-primary">Edytuj</a>
+                    </span>
+                        <h3 th:text="|${game.name} ${game.platform}|"></h3>
+                    <h5 th:text="|${game.genre}(${game.dataWydania})|"></h5>
+
+
+                    <div id="div-rate" >
+                        <p id="rate" class="rate" >Ocena gry</p>
+                        <p  class="rate" th:text="${rate}"></p>
+                           <label for="rate" id="rateLabel">
+                        <button id="rateButton" onclick="showRateForm()" sec:authorize="hasAuthority('USER')">Dodaj ocene </button>
+                              <form  sec:authorize="hasAuthority('USER')" id="rateForm" action="#" th:action="@{|/rate/${game.id}|}" hidden method="post">
+                                  <input type="range" value="5" min="0" max="10" step="0.5" oninput="this.nextElementSibling.value = this.value" name="userRate">
+                                  <output>5</output>
+                                  </br>
+                                  <button type="button" onclick="showRateForm()">Anuluj</button>
+                                  <button type="submit">Dodaj ocene</button>
+                              </form>
+                    </label>
+                    </div>
+
+
+
+                    <div th:text="${game.details.ogolnyOpis}">
+                    </div>
+                    <h4>Fabula</h4>
+                    <div th:text="${game.details.fabula}">
+                    </div>
+                    <h4>Mechanika</h4>
+                    <div th:text="${game.details.mechanika}">
+                    </div>
+                    <h4>Inne</h4>
+                    <div th:text="${game.details.inne}">
+                    </div>
+                    <a href="#" th:href="@{/ulubione/dodaj(gameId=${game.id})}" sec:authorize="hasAuthority('USER')" class="btn btn-sm btn-primary">
+                        Dodaj do ulubionych
+                    </a>
+                </div>
+            </div>
+
+            <span sec:authorize="hasAuthority('USER')">
+            <form  action="#" th:action="@{|/comment/add/${game.id}|}" method="post"  >
+                <div class="form-outline mb-4">
+                    <textarea  class="form-control" id="form6Example10" rows="4" name="content" th:name="content"  th:maxlength="2048" placeholder="Napisz komenatrz" ></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mb-4">Dodaje komentarz</button>
+            </form>
+                </span>
+
+            <div id="comments" th:remove="all-but-first">
+                <div id="userComment"  class="media col-12 " th:each="comment : ${game.comments}"  >
+                    <div>
+                        <span id="userCommentName">
+                            <div th:text="${comment.user.username}"></div>
+
+                    <span sec:authorize="isAuthenticated()" th:class="|box${comment.id}|">
+                    <a class="comment-buttons" th:if="${userComments.contains(comment)}"  href="#" th:href="@{/comment/delete(gameId=${game.id},commentId=${comment.id})}">Usun</a>
+                         <button class="comment-buttons" th:if="${userComments.contains(comment)}" th:onclick="|showEditForm(${comment.id})|" >Edytuj</button>
+                        </span>
+                    <span sec:authorize="isAuthenticated()">
+                    <form th:id="|form${comment.id}|" action="#" method="post" th:action="@{|/comment/edit/${game.id}/${comment.id}|}" hidden>
+                        <div class="form-outline mb-4">
+                    <textarea class="form-control"  rows="4" name="content" th:name="content"  th:maxlength="2048" th:text="${comment.content}" ></textarea>
+                </div>
+                        <button type="submit" class="btn btn-primary btn-block mb-4">Edytuj</button>
+                    </form>
+                    </span>
+                        </span>
+
+
+                    <div id="commentContent" th:text="${comment.content}" th:class="|box${comment.id}|" >
+                    </div>
+                        </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+#container{
+    width: 300px;
+    margin: 50px auto ;
+    padding: 20px;
+}
+.btn{
+    background-color: indianred;
+    color: white;
+    font-size: 15px;
+}
+.btn:hover{
+    transition: all 0.3s ease-out;
+    background-color: goldenrod;
+}
+.register-form{
+    margin-bottom: 10px;
+    width: 100%;
+}
+#register-form
+{
+
+}

@@ -1,0 +1,98 @@
+#container{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: sans-serif;
+}
+#naglowek{
+    height: 200px;
+    width: auto;
+    background-image: url("../img/tlo5.png");
+}
+#wyszukiwarka{
+    justify-content: end;
+}
+#logo{
+    justify-content: left;
+    margin: 30px;
+    font-size: 150%;
+    text-decoration: none;
+    color: red;
+}
+#navbar{
+    margin-top: 50px;
+    width: 150px;
+    float: left;
+}
+#navbar > ul > li{
+    margin: 5px;
+
+}
+#navbar > ul> li > .nav-link{
+    color: white;
+    background-color: red;
+    border-radius: 33px
+}
+#navbar > ul> li > .nav-link:hover{
+    background-color: brown;
+    transition: all 0.3s ease-out;
+}
+
+.jumbotron-fluid{
+    margin-left: 175px;
+    margin-top: 50px;
+    margin-right: 75px;
+    border-radius: 25px;
+}
+.game-list{
+    border-bottom-style:dotted;
+}
+p{
+    font-size: 70%;
+    margin-left: 10px;
+}
+
+.media{
+    margin-bottom: 5px;
+}
+.form-check-input{
+    margin-right: 20px;
+}
+.form-check-label{
+    margin-right: 20px;
+}
+.form-check{
+    justify-content: center;
+}
+#sortButtons{
+    justify-content: end;
+    margin-bottom: 10px;
+}
+#games{
+    margin: 20px;
+    padding-bottom: 10px;
+}
+#game-img{
+    margin-right: 10px;
+}
+#game-link{
+    color: #333333;
+
+}
+#game-link:hover{
+    text-decoration: none;
+    color: red;
+    transition: all 0.3s ease-out;
+}
+
+.rating{
+    width: 100px;
+    float: left;
+    background-color: goldenrod;
+    border-radius: 15%;
+}
+.erorrr{
+    background-color: red;
+    border-radius: 5px;
+    color: white;
+    width: 160px;
+}
