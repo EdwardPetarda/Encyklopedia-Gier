@@ -39,12 +39,14 @@ public class MyAccountController {
         return "myAccount";
     }
 
+    //Pobranie formularza do zmiany hasła
     @GetMapping("/myAccount/zmienHaslo")
     private String getChangePassword(Model model){
         model.addAttribute("invalidCredentials",false);
         return "changePasswordForm";
     }
 
+    //Zmiana hasła
     @PostMapping("/myAccount/zmienHaslo")
     private String changePassword(@RequestParam String oldPassword, @RequestParam String password, @RequestParam String checkPassword, Model model){
 
@@ -59,6 +61,7 @@ public class MyAccountController {
 
     }
 
+    //Usunięcie konta
     @GetMapping("/myAccount/deleteAccount")
     private String deleteAccount(HttpSession session, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
