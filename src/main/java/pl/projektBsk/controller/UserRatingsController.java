@@ -43,6 +43,7 @@ public class UserRatingsController {
     }
 
 
+    //Pobranie widoku ze szcegółami gry, dostępne w panelu użytkownika "ocenione"
     @GetMapping("/ratings/{id}")
     public String getDetailsGame(@PathVariable long id, Model model){
         Optional<Game> game = gameRepository.findById(id);
