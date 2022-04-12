@@ -45,6 +45,8 @@ public class FavoriteController {
         model.addAttribute("favorite",favorite);
         return "favorite";
     }
+    
+    //Wyświetlenie strony ze szczegółami gry, dostępne z panelu użytkownika "ulubione"
     @GetMapping("/ulubione/{id}")
     public String getDetailsGame(@PathVariable long id, Model model){
         Optional<Game> game = gameRepository.findById(id);
@@ -65,6 +67,7 @@ public class FavoriteController {
         }else return "redirect:/ulubione";
     }
 
+    //Dodanie gry do listy ulubionych użytkownika 
     @GetMapping("/ulubione/dodaj")
     private String addToFavorite(@RequestParam Long gameId,Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -80,6 +83,8 @@ public class FavoriteController {
          }
     }
 
+    
+    //Usunięcie gry z listy ulubionych 
     @GetMapping("/ulubione/delete/{id}")
     public String deleteFromFavorite(@PathVariable Long id){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
