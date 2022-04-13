@@ -46,6 +46,7 @@ public class MyAccountControllerTest {
     private MockMvc mockMvc;
 
 
+    //Test na usunięcie użytkownika
     @Test
     @WithCustomUser(authority = "USER")
     public void should_delete_user() throws Exception{
@@ -63,6 +64,7 @@ public class MyAccountControllerTest {
 
 
 
+    //Test na zmiane hasła użytkownika
     @Test
     @WithCustomUser(authority = "USER")
     public void should_return_result_true_change_password() throws Exception{
@@ -78,6 +80,7 @@ public class MyAccountControllerTest {
                 .andExpect(view().name("changePasswordForm"));
     }
 
+    //Test na zmiane hasła użytkownika, zwraca błąd
     @Test
     @WithCustomUser(authority = "USER")
     public void should_return_invalid_credentials_true_change_password() throws Exception{
@@ -95,6 +98,7 @@ public class MyAccountControllerTest {
 
 
 
+    //Test na zwrócenie widoku panelu użytkownika
     @Test
     @WithCustomUser(authority = "USER")
     public void should_return_my_account_view() throws Exception{
