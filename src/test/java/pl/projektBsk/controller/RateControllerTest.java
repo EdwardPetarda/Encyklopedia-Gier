@@ -35,6 +35,7 @@ public class RateControllerTest {
 
 
 
+    //Test na dodanie oceny do gry 
     @Test
     @WithCustomUser(authority = "USER")
     public void should_add_rate() throws Exception{
@@ -49,6 +50,7 @@ public class RateControllerTest {
                 .andExpect(view().name("redirect:/game/{id}"));
     }
 
+    //Test na edycje oceny gry
     @Test
     @WithCustomUser(authority = "USER")
     public void should_edit_rate() throws Exception{
@@ -63,6 +65,7 @@ public class RateControllerTest {
                 .andExpect(view().name("redirect:/game/{id}"));
     }
 
+    //Test na ocenę gry, zwraca błąd 
     @Test
     @WithCustomUser(authority = "USER")
     public void should_return_view_with_error() throws Exception{
