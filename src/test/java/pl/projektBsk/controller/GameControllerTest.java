@@ -48,6 +48,7 @@ public class GameControllerTest {
     private GameRepository gameRepository;
 
 
+    //Test na zwrócenie widoku z grami 
     @Test
     public void should_return_view_with_data() throws Exception {
         GameDetails gameDetails = new GameDetails("developer","publisher","ogolnyOpis","fabula","mechanika","inne");
@@ -72,6 +73,7 @@ public class GameControllerTest {
     }
 
 
+    //Test na zwrócenie widoku ze szczegółami gry 
     @Test
     public void should_return_view_with_game_details() throws Exception{
         GameDetails gameDetails = new GameDetails("developer","publisher","ogolnyOpis","fabula","mechanika","inne");
@@ -96,6 +98,7 @@ public class GameControllerTest {
 
 
 
+    //Test na zwrócenie widoku z grami wyszykanymi po danej frazie 
     @Test
     public void should_return_view_with_game_found_by_name() throws Exception{
         GameDetails gameDetails = new GameDetails("developer","publisher","ogolnyOpis","fabula","mechanika","inne");
@@ -121,6 +124,7 @@ public class GameControllerTest {
 
     }
 
+    //Test na usunięcie gry
     @Test
     public void should_delete_game_and_redirect_to_home_page() throws Exception{
 
@@ -143,6 +147,7 @@ public class GameControllerTest {
 
 
 
+    //Test na usunięcie gry z bazdy danych, zwraca błąd
     @Test
     public void should_return_error_game_delete() throws Exception {
 
@@ -163,6 +168,7 @@ public class GameControllerTest {
 
     }
 
+    //Test na zwrócenie błędu przy błędnym zapytaniu
     @Test
     public void should_return_error() throws Exception {
 
