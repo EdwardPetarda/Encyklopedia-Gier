@@ -36,6 +36,7 @@ public class CommentControllerTest {
     private GameService gameService;
 
 
+    //Test na dodanie komenatrza
     @Test
     @WithCustomUser(authority = "USER")
     public void should_add_comment() throws Exception{
@@ -49,6 +50,7 @@ public class CommentControllerTest {
     }
 
 
+    //Test na dodanie komentarza, zwraca błąd
     @Test
     @WithCustomUser(authority = "USER")
     public void should_no_add_comment() throws Exception{
@@ -62,6 +64,7 @@ public class CommentControllerTest {
                 .andExpect(view().name("errorView"));
     }
 
+    //Test na usunięcie komentarza
     @Test
     @WithCustomUser(authority = "USER")
     public void should_delete_comment() throws Exception{
@@ -76,6 +79,7 @@ public class CommentControllerTest {
     }
 
 
+    //Test na usunięcie komentarza, zwraca błąd
     @Test
     @WithCustomUser(authority = "USER")
     public void should_no_delete_comment() throws Exception{
@@ -90,6 +94,7 @@ public class CommentControllerTest {
                 .andExpect(view().name("errorView"));
     }
 
+    //Test na edycję komentarza
     @Test
     @WithCustomUser(authority = "USER")
     public void should_edit_comment() throws Exception{
@@ -104,6 +109,7 @@ public class CommentControllerTest {
 
     }
 
+    //Test na edycję komentarza, zwraca błąd 
     @Test
     @WithCustomUser(authority = "USER")
     public void should__no_edit_comment() throws Exception{
