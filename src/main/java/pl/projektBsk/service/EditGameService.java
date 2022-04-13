@@ -22,6 +22,7 @@ public class EditGameService {
         this.gameRepository = gameRepository;
     }
 
+    //Edycja danych gry, zapisanie do bazy danych
     @Transactional
     public boolean editGame(Game game, String name, String genre, LocalDate date, String shortDescription, String developer,
                             String publisher, String ogolnyOpis, String fabula, String mechanika, String inne,
