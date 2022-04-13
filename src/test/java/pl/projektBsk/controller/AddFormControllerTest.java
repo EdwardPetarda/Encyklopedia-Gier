@@ -49,6 +49,7 @@ public class AddFormControllerTest {
     private AddGameService addGameService;
 
 
+    //Sprawdzenie czy zwracany jest widok z formularzem na dodanie gry 
     @Test
     @WithCustomUser(authority = "ADMIN")
     public void should_get_add_game_view() throws Exception{
@@ -58,7 +59,7 @@ public class AddFormControllerTest {
                 .andExpect(model().attributeExists("game","gameDetails","emptyFields","wrongFormat"));
     }
 
-
+//Test na dodanie gry do bazy danych
     @Test
     @WithCustomUser(authority = "ADMIN")
     public void should_add_game() throws Exception{
@@ -94,6 +95,7 @@ public class AddFormControllerTest {
                 .andExpect(view().name("succesAdd"));
     }
 
+    //Test na dodanie gry do bazy danych, zwraca błąd 
     @Test
     @WithCustomUser(authority = "ADMIN")
     public void should_no_add_game() throws Exception{
@@ -126,6 +128,7 @@ public class AddFormControllerTest {
 
 
 
+    //Funkcja zwracająca nowy obiekt Game
     private Game getGame(){
         GameDetails gameDetails = new GameDetails("developer","publisher","ogolnyOpis","fabula","mechanika","inne");
         gameDetails.setId(1L);
