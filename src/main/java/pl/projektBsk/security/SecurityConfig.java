@@ -47,6 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
+        
+        //Zezwolenie wszystkim użytkownikom do poniższych zapytań
         http
                 .authorizeRequests().antMatchers(
                         "/register**",
@@ -62,9 +64,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/game/**",
                 "/search"
         ).permitAll()
+            //Zezwolnie tylko zalogowanym użytkownikom do poniższych zapytań
                 .antMatchers("/myAccount/**",
                         "/ratings/**",
                         "/comment/**").hasAuthority("USER")
+            
+            //Zezwolnie tylko dla administratora do poniższych zapytań
                 .antMatchers("/administration/**",
                         "/addGame/**",
                         "/game/delete/**",
