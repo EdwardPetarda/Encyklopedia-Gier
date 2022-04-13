@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 @Service
 public class AddGameService {
 
+    //Zapisanie zdjęcia na dysku
     public boolean saveImg(MultipartFile img, String gameName) {
         try {
             String folder = "src\\main\\resources\\static\\img\\";
