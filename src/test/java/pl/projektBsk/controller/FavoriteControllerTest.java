@@ -51,6 +51,7 @@ public class FavoriteControllerTest {
     private UserServiceImpl userService;
 
 
+    //Test na zwrócenie widoku ze szcegółami gry z listy ulubionych użytkownika
     @Test
     @WithCustomUser(authority = "USER")
     public void should_return_game_details_from_favorite() throws Exception{
@@ -73,6 +74,7 @@ public class FavoriteControllerTest {
     }
 
 
+    //Test na dodanie gry do listy ulubionych
     @Test
     @WithCustomUser(authority = "USER")
     public void should_add_game_to_favorite() throws Exception{
@@ -91,6 +93,7 @@ public class FavoriteControllerTest {
 
     }
 
+    //Test na dodanie gry do listy ulubionych, zwraca błąd
     @Test
     @WithCustomUser(authority = "USER")
     public void should_no_add_game_to_favorite() throws Exception{
@@ -110,6 +113,7 @@ public class FavoriteControllerTest {
     }
 
 
+    //Test na usunięcie gry z listy ulubionych
     @Test
     @WithCustomUser(authority = "USER")
     public void should_delete_game_from_favorite() throws Exception{
@@ -126,6 +130,7 @@ public class FavoriteControllerTest {
     }
 
 
+    //Test na usunięcie gry z listy ulubionych, zwraca błąd
     @Test
     @WithCustomUser(authority = "USER")
     public void should_no_delete_game_from_favorite() throws Exception{
@@ -142,6 +147,7 @@ public class FavoriteControllerTest {
 
 
 
+    //Funkcja zwracająca nowy obiekt Game 
     private Game getGame(){
         GameDetails gameDetails = new GameDetails("developer","publisher","ogolnyOpis","fabula","mechanika","inne");
         gameDetails.setId(1L);
@@ -154,6 +160,7 @@ public class FavoriteControllerTest {
         return game;
     }
 
+    //Funkcja zwracająca nowy obiekt User
     private User getUser(){
         User user = new User("username","old","email", UserRole.USER);
         user.setID(1L);
