@@ -30,6 +30,7 @@ public class RateService {
         this.gameRepository = gameRepository;
     }
 
+    //Dodanie oceny gry przez użytkownika
     @Transactional
     public boolean addRate(Double rate, Long gameid){
         try {
@@ -54,6 +55,7 @@ public class RateService {
         }
     }
 
+    //Sprawdzenie czy użytkownik już ocenił grę
     public boolean rateIsExist(Long gameId){
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -71,6 +73,7 @@ public class RateService {
         }
     }
 
+    //Edycja oceny gry użytkownika
     @Transactional
     public void editRate(Double rate, Long gameId){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
