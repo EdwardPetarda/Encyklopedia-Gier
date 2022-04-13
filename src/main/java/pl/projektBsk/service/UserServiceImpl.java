@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    //Dodanie nowego użytkownika do bazy danych
     @Override
     public void saveUser(User user){
         userRepository.save(new User(user.getUsername(),
@@ -38,6 +39,7 @@ public class UserServiceImpl implements UserService {
                 user.getRole()));
     }
 
+    //Logowanie użytkownika i nadanie uprawnienień
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
@@ -48,11 +50,15 @@ public class UserServiceImpl implements UserService {
         UserRole role = user1.getRole();
         return new org.springframework.security.core.userdetails.User(user1.getUsername(),user1.getPassword(), getGrantedAuthority(role));
     }
+    
+    //Nadanie roli użytkownikowi 
     private List<GrantedAuthority> getGrantedAuthority(UserRole role){
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role.name()));
         return authorities;
     }
+    
+    //Zmiana hasła użytkownika
     public boolean changePassword(String oldPassword, String password, String checkPassword){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
