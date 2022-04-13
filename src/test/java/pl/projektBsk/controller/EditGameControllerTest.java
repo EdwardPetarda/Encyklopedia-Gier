@@ -44,6 +44,7 @@ public class EditGameControllerTest {
     private EditGameService editGameService;
 
 
+    //Test na edycję gry 
     @Test
     @WithCustomUser(authority = "ADMIN")
     public void should_edit_game() throws Exception{
@@ -77,6 +78,8 @@ public class EditGameControllerTest {
                 .andExpect(status().isFound())
                 .andExpect(view().name("redirect:/game/1"));
     }
+    
+    //Test na edycję gry, zwraca błąd
     @Test
     @WithCustomUser(authority = "ADMIN")
     public void should_no_edit_game() throws Exception{
@@ -112,6 +115,7 @@ public class EditGameControllerTest {
     }
 
 
+    //Funckja zwracająca nowy obiekt Game 
     private Game getGame(){
         GameDetails gameDetails = new GameDetails("developer","publisher","ogolnyOpis","fabula","mechanika","inne");
         gameDetails.setId(1L);
