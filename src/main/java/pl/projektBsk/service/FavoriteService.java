@@ -21,6 +21,7 @@ public class FavoriteService {
         this.entityManager = entityManager;
     }
 
+    //Dodanie gry do listy ulubionych
     @Transactional
     public void update(Game game, Long userId){
         Optional<User> user = Optional.ofNullable(entityManager.find(User.class,userId));
@@ -34,6 +35,7 @@ public class FavoriteService {
        }
     }
 
+    //Usunięcie gry z listy ulubionych
     @Transactional
     public void delete(Game game, Long userId){
         Optional<User> user = Optional.ofNullable(entityManager.find(User.class,userId));
