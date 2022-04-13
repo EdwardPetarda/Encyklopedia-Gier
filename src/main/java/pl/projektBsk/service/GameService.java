@@ -36,6 +36,7 @@ public class GameService {
 
     }
 
+    //Podliczenie gier z każdego gatunku 
     public Map<String,Integer> countGamesByGenreAndPlatform(String platform){
         Map<String,Integer> gamesByGenre = new HashMap<>();
         gamesByGenre.put("RPG",gameRepository.countByGenreAndPlatform("RPG",platform));
@@ -50,6 +51,7 @@ public class GameService {
 
     }
 
+    //Sprawdzenie czy dana gra instenieje w bazie danych 
     public boolean exist(Long gameId){
         Optional<Game> game = gameRepository.findById(gameId);
         if (game.isPresent())
@@ -59,6 +61,7 @@ public class GameService {
     }
 
 
+    //Sprawdzenie czy dany gatunek istnieje w aplikacji 
     public boolean checkGenre(String genre){
 
         if (genres.contains(genre))
