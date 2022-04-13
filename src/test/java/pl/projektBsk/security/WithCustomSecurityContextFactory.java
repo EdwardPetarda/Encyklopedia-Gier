@@ -10,6 +10,7 @@ import java.util.List;
 
 public class WithCustomSecurityContextFactory implements WithSecurityContextFactory<WithCustomUser> {
 
+    //Potrzebne do testów, pozwala na tworzenie dowolnego użytkownika z odpowiednią rolą
     @Override
     public SecurityContext createSecurityContext(WithCustomUser withCustomUser) {
      SecurityContext context = SecurityContextHolder.createEmptyContext();
