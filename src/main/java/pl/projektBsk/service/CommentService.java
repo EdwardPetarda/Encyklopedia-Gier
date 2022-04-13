@@ -32,6 +32,7 @@ public class CommentService {
     }
 
 
+    //Dodanie komenatrza użytkownika do bazy danych, przypisanie komentarza do użytkownika i do gry
     @Transactional
     public boolean addComment(String content, Long gameId){
         try {
@@ -56,6 +57,7 @@ public class CommentService {
         }
     }
 
+    //Usunięcie komentarza użytkownika
     @Transactional
     public boolean deleteComment(Long commentId, Long gameId){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -74,6 +76,7 @@ public class CommentService {
         return false;
     }
 
+    //Edycja danego komentarza użytkownika
     @Transactional
     public boolean editComment(Long commentId, Long gameId,String content){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
